@@ -1,56 +1,14 @@
-import { useSortableData } from "../hooks/useSortableData";
+import TableBody from "./TableBody";
+import TableHead from "./TableHead";
 
-const Table = (props) => {
-  const { items, requestSort, sortConfig } = useSortableData(props.products);
-  const getClassNamesFor = (name) => {
-    if (!sortConfig) {
-      return;
-    }
-    return sortConfig.key === name ? sortConfig.direction : undefined;
-  };
+const Table = ({ getClassNamesFor, requestSort, items }) => {
   return (
     <table>
-      <caption>Products</caption>
-      <thead>
-        <tr>
-          <th>
-            <button
-              type="button"
-              onClick={() => requestSort("name")}
-              className={getClassNamesFor("name")}
-            >
-              Name
-            </button>
-          </th>
-          <th>
-            <button
-              type="button"
-              onClick={() => requestSort("price")}
-              className={getClassNamesFor("price")}
-            >
-              Price
-            </button>
-          </th>
-          <th>
-            <button
-              type="button"
-              onClick={() => requestSort("stock")}
-              className={getClassNamesFor("stock")}
-            >
-              In Stock
-            </button>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {items.map((item) => (
-          <tr key={item.id}>
-            <td>{item.name}</td>
-            <td>${item.price}</td>
-            <td>{item.stock}</td>
-          </tr>
-        ))}
-      </tbody>
+      <TableHead
+        getClassNamesFor={getClassNamesFor}
+        requestSort={requestSort}
+      />
+      <TableBody items={items} />
     </table>
   );
 };
