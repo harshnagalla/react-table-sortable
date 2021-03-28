@@ -12,15 +12,19 @@ const TableContainer = () => {
   const [searchType, setSearchType] = useState("1");
 
   useEffect(() => {
-    const reformattedData = reformatDataForTable(
-      data.simulationRun,
-      data.scenarios
-    );
-    if (search && search.length > 0) {
-      const searchedData = searchData(search, reformattedData, searchType);
-      setSearchedData(searchedData);
-    } else {
-      setSearchedData(reformattedData);
+    try {
+      const reformattedData = reformatDataForTable(
+        data.simulationRun,
+        data.scenarios
+      );
+      if (search && search.length > 0) {
+        const searchedData = searchData(search, reformattedData, searchType);
+        setSearchedData(searchedData);
+      } else {
+        setSearchedData(reformattedData);
+      }
+    } catch (e) {
+      console.log("Error in table data");
     }
   }, [search]);
 

@@ -5,7 +5,11 @@ import { useEffect, useState } from "react";
 const Statistics = ({ tableData }) => {
   const [stats, setStats] = useState({});
   useEffect(() => {
-    setStats(getStatistics(tableData));
+    try {
+      setStats(getStatistics(tableData));
+    } catch (e) {
+      console.log("Error in setting statistics");
+    }
   }, [tableData, tableData.length]);
 
   const {
@@ -15,7 +19,6 @@ const Statistics = ({ tableData }) => {
     percentageRunsWithCollision,
   } = stats ?? {};
 
-  
   return (
     <div className="statistics">
       <label>{`Percentage of runs that exceed the maximum number of stops - ${percentageRunsExceedingMaxStops}`}</label>
